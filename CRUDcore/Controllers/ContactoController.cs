@@ -24,14 +24,71 @@ namespace CRUDcore.Controllers
         //Guarda el objeto en la bd
         public IActionResult Guardar(ContactoModel contacto)
         {
-            var respuesta = _contactoDatos.Guardar(contacto);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                var respuesta = _contactoDatos.Guardar(contacto);
+                if (respuesta)
+                {
+                    return RedirectToAction("Listar");
+                }
+                else
+                {
+
+                    return View();
+                }
+            }
+
+        }
+
+        public IActionResult Editar(int idContacto)
+        {
+            var contacto = _contactoDatos.Obtener(idContacto);
+            return View(contacto);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(ContactoModel contacto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                var respuesta = _contactoDatos.Editar(contacto);
+                if (respuesta)
+                {
+                    return RedirectToAction("Listar");
+                }
+                else
+                {
+
+                    return View();
+                }
+            }
+        }
+
+        public IActionResult Eliminar(int idContacto)
+        {
+            var contacto = _contactoDatos.Obtener(idContacto);
+            return View(contacto);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(ContactoModel contacto)
+        {
+            var respuesta = _contactoDatos.Eliminar(contacto.Id);
+
             if (respuesta)
             {
                 return RedirectToAction("Listar");
             }
             else
             {
-
                 return View();
             }
         }

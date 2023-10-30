@@ -1,18 +1,21 @@
 ﻿@model ContactoModel
 
 @{
-    ViewData["Title"] = "Guardar";
+    ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card">
     <div class="card-header">
-        Crear Contacto
+        Editar Contacto
     </div>
     <div class="card-body">
 
 
-        <form asp-action="Guardar" asp-controller="Contacto" method="post">
+        <form asp-action="Editar" asp-controller="Contacto" method="post">
+
+            <input asp-for="Id" type="number" class="form-control" id="id" aria-describedby="id" hidden>
+
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input asp-for="Nombre" type="text" class="form-control" id="nombre" aria-describedby="Nombre">
@@ -35,4 +38,3 @@
 
     </div>
 </div>
-
